@@ -1,60 +1,80 @@
 # 🇮🇳 DemocracyLens
 
-**DemocracyLens** is a modern, interactive web application designed to simplify and educate users about the Indian Election System. Built with Next.js and a premium design system, it breaks down complex electoral processes into bite-sized, engaging modules.
+**DemocracyLens** is a premium, interactive educational platform designed to simplify and demystify the Indian Election System. Built with a mobile-first philosophy, it transforms complex electoral processes into engaging, bite-sized learning modules through timelines, interactive flashcards, and AI-powered assistance.
 
 ## 🚀 Live Demo
-Experience the app live: **[https://election-assistant-574005567405.us-central1.run.app](https://election-assistant-574005567405.us-central1.run.app)**
+Experience the app live: **[democracy-lens.run.app](https://democracy-lens-574005567405.us-central1.run.app)**
 
 ---
 
 ## ✨ Key Features
 
-- **Interactive Timeline**: A step-by-step journey of the election process, from Delimitation to Results.
-- **Study Flashcards**: Master key terminology like EVM, VVPAT, and Model Code of Conduct with 3D flip-cards.
-- **Knowledge Quizzes**: Test your understanding with multiple-choice quizzes and detailed explanations.
-- **Election Assistant Chat**: A simulated AI chatbot to answer specific questions about voter registration and election rules.
-- **Premium UI**: Dark mode support, glassmorphism, and smooth micro-animations.
+- **📍 Interactive Timeline**: A step-by-step visual journey of the election lifecycle, from Delimitation to Result declaration.
+- **🃏 3D Study Flashcards**: Master terminology like EVM, VVPAT, and MCC with interactive, swipeable flip-cards.
+- **🧠 Knowledge Quizzes**: Test your electoral IQ with instant feedback and detailed explanations.
+- **💬 AI Chat Assistant**: A simulated intelligent assistant to answer real-time queries about the democratic process.
+- **📱 Mobile-First UX**: Native-feeling navigation with a **Bottom Tab Bar**, full-screen menus, and haptic-like touch feedback.
+- **🎨 Premium Aesthetic**: Sleek dark-mode design featuring glassmorphism, vibrant gradients, and smooth micro-animations.
+
+---
+
+## 🏗 System Architecture
+
+```mermaid
+graph TD
+    User((User)) <--> WebApp[Next.js Frontend]
+    WebApp --> UI[Premium Design System]
+    UI --> Components[Interactive Components]
+    
+    subgraph Core_Modules
+        Components --> Timeline[Election Timeline]
+        Components --> Flashcards[3D Flashcards]
+        Components --> Quizzes[Interactive Quizzes]
+        Components --> Chat[AI Assistant]
+    end
+    
+    WebApp --> Deployment[Google Cloud Platform]
+    Deployment --> CloudRun[Cloud Run]
+    Deployment --> ArtifactRegistry[Artifact Registry]
+    
+    style WebApp fill:#3b82f6,color:#fff
+    style CloudRun fill:#138808,color:#fff
+    style User fill:#ff9933,color:#fff
+```
+
+---
+
+## 🗳 The Electoral Journey
+
+```mermaid
+graph LR
+    A(Delimitation) --> B(Voter List)
+    B --> C(Notification)
+    C --> D(Nomination)
+    D --> E(Polling)
+    E --> F(Results)
+    
+    style A fill:#ff9933,color:#fff
+    style F fill:#138808,color:#fff
+```
 
 ---
 
 ## 🛠 Tech Stack
 
-```mermaid
-graph TD
-    A[Next.js 15] --> B[React 19]
-    A --> C[Vanilla CSS]
-    A --> D[Lucide React Icons]
-    E[Deployment] --> F[Google Cloud Run]
-    E --> G[Cloud Buildpacks]
-```
-
----
-
-## 🗳 The Election Process
-
-Here is the journey of an election in India as presented in the app:
-
-```mermaid
-graph TD
-    Step1(1. Delimitation) --> Step2(2. Voter Registration)
-    Step2 --> Step3(3. Notification)
-    Step3 --> Step4(4. Nomination)
-    Step4 --> Step5(5. Scrutiny)
-    Step5 --> Step6(6. Campaigning)
-    Step6 --> Step7(7. Polling Day)
-    Step7 --> Step8(8. Results)
-    
-    style Step1 fill:#ff9933,stroke:#333,stroke-width:2px,color:#fff
-    style Step8 fill:#138808,stroke:#333,stroke-width:2px,color:#fff
-```
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
+- **Styling**: Vanilla CSS & [Tailwind CSS v4](https://tailwindcss.com/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Deployment**: [Google Cloud Run](https://cloud.google.com/run)
+- **CI/CD**: Google Cloud Build
 
 ---
 
 ## 📦 Getting Started
 
 ### Prerequisites
-- Node.js 18+
-- npm or yarn
+- Node.js 20+
+- npm
 
 ### Installation
 1. Clone the repository:
@@ -73,14 +93,5 @@ graph TD
 
 ---
 
-## 🏗 Project Structure
-
-- `src/app`: Next.js App Router pages and layouts.
-- `src/components`: Reusable UI components (Navbar, Footer, etc.).
-- `src/data`: Mock data for timelines, quizzes, and flashcards.
-- `src/app/globals.css`: Premium design system and utility classes.
-
----
-
 ## 📜 License
-This project is for educational purposes. Built with ❤️ for Indian Democracy.
+This project was built as part of the **Prompt Wars Challenge**. All rights reserved to the author. Built with ❤️ for the world's largest democracy.
