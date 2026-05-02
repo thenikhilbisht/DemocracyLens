@@ -1,5 +1,5 @@
 .learn-page {
-  padding: 8rem 1.5rem 4rem;
+  padding: 6rem 1.5rem 6rem;
   max-width: 800px;
 }
 
@@ -38,6 +38,12 @@
   color: white;
   flex-shrink: 0;
   z-index: 2;
+  box-shadow: 0 0 20px color-mix(in srgb, currentColor, transparent 70%);
+  transition: transform 0.3s ease;
+}
+
+.timeline-item:hover .timeline-icon-wrapper {
+  transform: scale(1.1);
 }
 
 .timeline-line {
@@ -65,6 +71,15 @@
 
 @media (max-width: 600px) {
   .timeline-item {
-    gap: 1rem;
+    gap: 1.25rem;
+  }
+  
+  .timeline-icon-wrapper {
+    width: 40px;
+    height: 40px;
+  }
+
+  .timeline-content .h3 {
+    font-size: 1.25rem;
   }
 }

@@ -1,0 +1,50 @@
+.mobile-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: calc(4.5rem + var(--safe-area-bottom));
+  background-color: var(--card);
+  border-top: 1px solid var(--border);
+  display: none;
+  grid-template-columns: repeat(4, 1fr);
+  padding-bottom: var(--safe-area-bottom);
+  z-index: 100;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  color: var(--muted-foreground);
+  transition: all 0.2s ease;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.mobile-nav-item.active {
+  color: var(--primary);
+}
+
+.mobile-nav-icon-wrapper {
+  padding: 0.5rem;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.mobile-nav-item.active .mobile-nav-icon-wrapper {
+  background-color: color-mix(in srgb, var(--primary), transparent 90%);
+}
+
+.mobile-nav-item:active {
+  transform: scale(0.9);
+}
+
+@media (max-width: 768px) {
+  .mobile-nav {
+    display: grid;
+  }
+}

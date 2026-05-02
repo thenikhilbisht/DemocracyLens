@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { BookOpen, HelpCircle, Layers, MessageSquare, Menu, X, Landmark } from 'lucide-react';
+import { BookOpen, HelpCircle, Layers, MessageSquare, Menu, X, Landmark, Sun, Moon } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import './navbar.css';
 
@@ -10,14 +10,31 @@ export default function Navbar() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [theme, setTheme] = useState('dark');
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
+    
+    // Check initial theme
+    const savedTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    setTheme(savedTheme);
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+  };
 
   const navLinks = [
     { name: 'Learn', href: '/learn', icon: <BookOpen size={18} /> },
@@ -31,7 +48,7 @@ export default function Navbar() {
       <div className="container navbar-container">
         <Link href="/" className="logo-container">
           <Landmark className="logo-icon" size={28} />
-          <span className="logo-text text-gradient">Democracy<span style={{color: 'var(--foreground)'}}>Lens</span></span>
+          <span className="logo-text text-gradient">Democracy<span className="text-[var(--foreground)]">Lens</span></span>
         </Link>
 
         {/* Desktop Nav */}
@@ -48,14 +65,25 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Mobile Toggle */}
-        <button 
-          className="mobile-toggle mobile-only"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="nav-actions flex items-center gap-4">
+          {/* Theme Toggle */}
+          <button 
+            className="theme-toggle p-2 rounded-full hover:bg-[var(--secondary)] transition-colors"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
+
+          {/* Mobile Toggle */}
+          <button 
+            className="mobile-toggle mobile-only"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}

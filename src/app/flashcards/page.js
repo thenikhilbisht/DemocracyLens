@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { flashcardData } from '@/data/election';
 import { ChevronLeft, ChevronRight, RotateCw } from 'lucide-react';
 import './flashcards.css';
@@ -8,23 +8,53 @@ import './flashcards.css';
 export default function Flashcards() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+  const timeoutRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
   const handleNext = () => {
     setIsFlipped(false);
-    setTimeout(() => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => {
       setCurrentIndex((prev) => (prev + 1) % flashcardData.length);
     }, 150); // wait for flip animation to reset
   };
 
   const handlePrev = () => {
     setIsFlipped(false);
-    setTimeout(() => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => {
       setCurrentIndex((prev) => (prev - 1 + flashcardData.length) % flashcardData.length);
     }, 150);
   };
 
   const handleFlip = () => {
-    setIsFlipped(!isFlipped);
+    setIsFlipped(prev => !prev);
+  };
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+    
+    if (isLeftSwipe) handleNext();
+    if (isRightSwipe) handlePrev();
   };
 
   const currentCard = flashcardData[currentIndex];
@@ -43,7 +73,13 @@ export default function Flashcards() {
           Card {currentIndex + 1} of {flashcardData.length}
         </div>
 
-        <div className={`flashcard ${isFlipped ? 'flipped' : ''}`} onClick={handleFlip}>
+        <div 
+          className={`flashcard ${isFlipped ? 'flipped' : ''}`} 
+          onClick={handleFlip}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+        >
           <div className="flashcard-inner">
             {/* Front */}
             <div className="flashcard-front card glass">

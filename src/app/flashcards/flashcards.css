@@ -64,6 +64,14 @@
   transform: rotateY(180deg);
 }
 
+.flashcard-front.card:hover {
+  transform: none;
+}
+
+.flashcard-back.card:hover {
+  transform: rotateY(180deg);
+}
+
 .flip-hint {
   position: absolute;
   bottom: 1.5rem;
